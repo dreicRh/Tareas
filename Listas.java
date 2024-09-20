@@ -1,20 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- */
-
-package com.mycompany.listas;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Listas {
-    
 class Video {
-    String titulo;
-    String autor;
-    String url;
-    boolean activo;
-
-    // Constructor que acepta todos los parámetros
+    private String titulo;
+    private String autor;
+    private String url;
+    private boolean activo;
+    
     public Video(String titulo, String autor, String url, boolean activo) {
         this.titulo = titulo;
         this.autor = autor;
@@ -22,58 +14,64 @@ class Video {
         this.activo = activo;
     }
 
-    // Método para mostrar el video
-    @Override
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public String getAutor() {
+        return autor;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public boolean isActivo() {
+        return activo;
+    }
+    
     public String toString() {
-        return "Título: " + titulo + ", Autor: " + autor + ", URL: " + url + ", Activo: " + activo;
+        return "Video{" +
+                "Titulo='" + titulo + '\'' +
+                ", Autor='" + autor + '\'' +
+                ", URL='" + url + '\'' +
+                ", Activo=" + activo +
+                '}';
     }
 }
 
 public class Main {
     public static void main(String[] args) {
-        // Lista de videos
         ArrayList<Video> listaVideos = new ArrayList<>();
-        Scanner sc = new Scanner(System.in);
-        String titulo, autor, url, continuar;
-        boolean activo;
+        Scanner scanner = new Scanner(System.in);
 
-        do {
-            // Entrada de datos para el video
-            System.out.print("Ingrese el título del video: ");
-            titulo = sc.nextLine();
+        while (true) {
+            System.out.println("Ingrese el título del video: ");
+            String titulo = scanner.nextLine();
 
-            System.out.print("Ingrese el autor del video: ");
-            autor = sc.nextLine();
+            System.out.println("Ingrese el autor del video: ");
+            String autor = scanner.nextLine();
 
-            System.out.print("Ingrese la URL del video: ");
-            url = sc.nextLine();
+            System.out.println("Ingrese la URL del video: ");
+            String url = scanner.nextLine();
 
-            // Aquí verificamos si el video está activo
-            System.out.print("¿El video está activo? (true/false): ");
-            while (!sc.hasNextBoolean()) {
-                System.out.println("Entrada inválida. Por favor, ingrese true o false.");
-                sc.next(); // Consumir entrada inválida
-            }
-            activo = sc.nextBoolean();
-            sc.nextLine();  // Limpiar el buffer del scanner
+            System.out.println("¿El video está activo? (Si/No): ");
+            boolean activo = Boolean.parseBoolean(scanner.nextLine());
 
-            // Crear y agregar el nuevo objeto Video a la lista
+            
             Video video = new Video(titulo, autor, url, activo);
             listaVideos.add(video);
 
-            // Preguntar si el usuario desea agregar otro video
-            System.out.print("¿Desea agregar otro video? (s/n): ");
-            continuar = sc.nextLine();
-
-        } while (continuar.equalsIgnoreCase("s"));
-
-        // Imprimir la lista de videos
-        System.out.println("\nLista de Videos:");
-        for (Video v : listaVideos) {
-            System.out.println(v);
+            System.out.println("\n¿Desea agregar otro video? (Si/No): ");
+            String continuar = scanner.nextLine();
+            if (continuar.equalsIgnoreCase("No")) {
+                break;
+            }
         }
 
-        sc.close();
+        System.out.println("\nLista de videos ingresados:");
+        for (Video video : listaVideos) {
+            System.out.println(video);
+        }
     }
-}
 }
